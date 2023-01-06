@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/fs"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -566,7 +565,7 @@ func (tc *ndkToolchain) Path(ndkRoot, toolName string) string {
 		cmd = cmdFromPref(tc.toolPrefix)
 		// Starting from NDK 23, GNU binutils are fully migrated to LLVM binutils.
 		// See https://android.googlesource.com/platform/ndk/+/master/docs/Roadmap.md#ndk-r23
-		if _, err := os.Stat(cmd); errors.Is(err, fs.ErrNotExist) {
+		if _, err := os.Stat(cmd); os.IsNotExist(err) {
 			cmd = cmdFromPref("llvm")
 		}
 	}

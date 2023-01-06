@@ -9,7 +9,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"errors"
 	"flag"
 	"fmt"
 	"html/template"
@@ -93,9 +92,6 @@ func determineGoVersion() error {
 	if _, err := fmt.Sscanf(string(goVersionOut), "go version go1.%d", &minor); err != nil {
 		// Ignore unknown versions; it's probably a devel version.
 		return nil
-	}
-	if minor < 16 {
-		return errors.New("Go 1.16 or newer is required")
 	}
 	return nil
 }
